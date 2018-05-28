@@ -8,6 +8,7 @@ import { InfoPage } from '../pages/info/info';
 import { ListPage } from '../pages/list/list';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ScanPage } from '../pages/scan/scan';
+//import { Database } from '../pages/database/database';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +26,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     InfoPage,
     TabsPage,
     ScanPage,
-    ListPage
+    ListPage,
+    //Database
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     InfoPage,
     TabsPage,
     ScanPage,
-    ListPage
+    ListPage,
+    //Database
   ],
   providers: [
     StatusBar,
@@ -46,6 +49,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SQLite,
     BarcodeScanner,
     InAppBrowser,
+    //Database,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
