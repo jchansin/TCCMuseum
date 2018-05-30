@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
+import { DatabaseProvider } from '../database/database';
 
 //Native components
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
@@ -9,33 +12,21 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
   selector: 'page-list',
   templateUrl: 'list.html'
 })
+
 export class ListPage {
 
-  private seenWorks: number;
-  private totalWorks: number;
+  // private seenWorks: number;
+  // private totalWorks: number;
+  private testString: any;
 
-  constructor(public navCtrl: NavController, private sqlite: SQLite) {
-    //this.getSeenWorks();
-    //this.getTotalWorks();
+  constructor(public navCtrl: NavController, private sqlite: SQLite, private dbService: DatabaseProvider, public navParams: NavParams) {
+    
+    /* this.dbService.initAppDatabase();
+    this.testString = this.dbService.requestJipeValue(); */
 
   }
 
-  /* // Get number of works already seen in browser
-  private getSeenWorks(): void {
-    this.seenWorks = this.db.executesql(
-      `SELECT COUNT(visit_status)
-      FROM oeuvres
-      WHERE oeuvres.visit_status=1`
-    )
-  }
-
-  // Get total number of works in db
-  private getTotalWorks(): void {
-    this.totalWorks = this.db.executesql(
-      `SELECT COUNT(id)
-      FROM oeuvres`
-    )
-  } */
-
+ 
+  
 
 }

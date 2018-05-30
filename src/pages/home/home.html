@@ -7,15 +7,16 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Bienvenue au Tahiti Code Camp Museum !</h2>
+  <h2>Bienvenue dans l'application Tahiti Code Camp Museum !</h2>
 
 
   <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
+    Vous trouverez ici une liste complète des oeuvres présentes dans le Tahiti Code Camp Museum.<br/>
+    Vous pouvez aussi scanner le QR code d'une oeuvre afin d'accéder à plus de détails.
   </p>
   
   <button id="appStartButton" ion-button outline round (tap) = "goToTabs()" [disabled] = "buttonDisabled"> {{ loadingStatus }} <!-- Button should be disabled while db initializes, needs work-->
   </button>
+
 
 </ion-content>
