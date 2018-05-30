@@ -12,6 +12,7 @@ export class DatabaseProvider {
 
     public db: SQLiteObject;
     public loadingStatus: string;
+    public testString: any;
 
     options: any = {
         name: 'tccmuseum.db',
@@ -21,16 +22,6 @@ export class DatabaseProvider {
 
     constructor(public sqlite: SQLite) {
 
-    }
-    
-    // Initializes database
-    public initAppDatabase(): void {
-        this.sqlite.create(this.options)
-            .then((db: SQLiteObject) => {
-                console.log(`DB initialized and ready`)
-                this.db = db;
-            })
-            .catch(e => console.log(e));
     }
 
 
@@ -70,8 +61,17 @@ export class DatabaseProvider {
 
 
     // Table values request testing
-    public requestJipeValue(): any {
-        this.db.executeSql('select * from `works` where lastname = "ALVAREZ"', {})
+    public requestJipeValue(): any {     
+        this.sqlite.create(this.options)
+            .then((db: SQLiteObject) => {
+                console.log(`DB initialized and ready`)
+                this.db = db;
+                this.db.executeSql('select * from `works` where lastname = "ALVAREZ"', {})
+                    .then (function(data) {
+                        return data
+                    })
+            })
+            .catch(e => console.log(e));
     }
 
 

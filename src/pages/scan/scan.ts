@@ -18,7 +18,6 @@ export class ScanPage {
 
   constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, private dbService: DatabaseProvider, private iab: InAppBrowser) {
     
-    this.dbService.initAppDatabase();
 
     this.barcodeScanner.scan()
       .then(barcodeData => {

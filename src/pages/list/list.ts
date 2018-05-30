@@ -21,8 +21,7 @@ export class ListPage {
 
   constructor(public navCtrl: NavController, private sqlite: SQLite, private dbService: DatabaseProvider, public navParams: NavParams) {
     
-    /* this.dbService.initAppDatabase();
-    this.testString = this.dbService.requestJipeValue(); */
+    console.log(JSON.stringify(this.dbService));
 
   }
 
