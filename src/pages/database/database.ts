@@ -1,4 +1,4 @@
-// This will be exported in pages where needed to avoid re-opening the database each time
+// This will be used as a provider to avoid re-opening the database each time
 
 // Table values need to be added in
 
@@ -8,10 +8,11 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Injectable()
 
-export class Database {
+export class DatabaseProvider {
 
-    private db: SQLiteObject;
-    private loadingStatus: string;
+    public db: SQLiteObject;
+    public loadingStatus: string;
+    public testString: any;
 
     options: any = {
         name: 'tccmuseum.db',
@@ -19,14 +20,14 @@ export class Database {
         createFromLocation: 1
     }
 
-    constructor(private sqlite: SQLite) {
-
-        this.startAppDatabase();
+    constructor(public sqlite: SQLite) {
 
     }
-    
-    private startAppDatabase(): void { 
-        this.loadingStatus = 'Chargement en cours, veuillez patienter...' // Wait message while db initializes
+
+
+    // Creating or opening the database
+    public startAppDatabase(): void { 
+        this.loadingStatus = 'Chargement en cours...' // Wait message while db initializes
         this.sqlite.create(this.options)
             .then((db: SQLiteObject) => {
                 console.log(`DB created, named tccmuseum.db`)
@@ -39,12 +40,57 @@ export class Database {
     }
 
     // Function for creating table "works", only if not already created
-    private createTable(): void {
-        this.db.executeSql('CREATE TABLE IF NOT EXISTS `works` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `lastname` TEXT, `firstname` TEXT, `photo_path` TEXT, `qr_code_number` INTEGER, `visit_status` TEXT )', {})
-        .then(() => console.log('Table created'))
-        .catch(e => console.log(e));
+    public createTable(): void {
+        this.db.executeSql('CREATE TABLE `works` ( `id` INTEGER PRIMARY KEY, `lastname` TEXT, `firstname` TEXT, `photo_path` TEXT, `qr_code_number` INTEGER, `visit_status` INTEGER DEFAULT 0 )', {})
+            .then(() => {
+                console.log("Table 'works' created")
+                this.insertTableValues();
+            })
+            .catch(e => console.log(e));
     }
 
+
+    // Table values insertion
+    public insertTableValues(): void {
+        this.db.executeSql('insert into `works` ( id, lastname, firstname, qr_code_number, photo_path) values ( "1", "ALVAREZ", "Jean-pierre", "9213750369", "photo_path")', {} )
+            .then(() => {
+                console.log('Jipé intégré en DB')
+            })
+            .catch(e => console.log(e));
+    }
+
+
+    // Table values request testing
+    public requestJipeValue(): any {     
+        this.sqlite.create(this.options)
+            .then((db: SQLiteObject) => {
+                console.log(`DB initialized and ready`)
+                this.db = db;
+                this.db.executeSql('select * from `works` where lastname = "ALVAREZ"', {})
+                    .then (function(data) {
+                        return data
+                    })
+            })
+            .catch(e => console.log(e));
+    }
+
+
+     /* // Get number of works already seen in browser
+  public getSeenWorks(): void {
+    this.seenWorks = this.db.executesql(
+      `SELECT COUNT(visit_status)
+      FROM works
+      WHERE works.visit_status=1`
+    )
+  }
+
+  // Get total number of works in db
+  public getTotalWorks(): void {
+    this.totalWorks = this.db.executesql(
+      `SELECT COUNT(id)
+      FROM works`
+    )
+  } */
 
 
 }

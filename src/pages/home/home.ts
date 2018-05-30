@@ -1,10 +1,7 @@
-// Need to dump database values during table creation
-
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-
+import { DatabaseProvider } from '../database/database';
 
 //Native components
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
@@ -23,32 +20,16 @@ export class HomePage {
 
   private db: SQLiteObject;
   public loadingStatus: string;
+  public myName: string;
 
 
-  
-
-  constructor (public navCtrl: NavController, private sqlite: SQLite) {
+  constructor (public navCtrl: NavController, private sqlite: SQLite, private dbService: DatabaseProvider) {
     
-    this.createAppDatabase
+    this.dbService.startAppDatabase();
+    this.loadingStatus = this.dbService.loadingStatus;
     
   }
 
-  private createAppDatabase(): void { 
-    this.loadingStatus = 'Chargement en cours, veuillez patienter...' // Wait message while db initializes
-    this.sqlite.create({ // Creates or opens db
-      name: DATABASE_FILE_NAME,
-      location: 'default'
-    })
-      .then((db: SQLiteObject) => {
-        console.log(`DB created, named {tccmuseum.db`)
-        this.db = db;
-        this.createTable(); // Creates table only if non-existent
-      })
-      .catch(e => console.log(e));
-    this.loadingStatus = "Touchez ici pour démarrer" // db is initialized and ready, user can start using the app
-     
-      
-  }
 
   // Function for creating table "works", only if not already created
   private createTable(): void {
@@ -60,8 +41,9 @@ export class HomePage {
 
   // Function linked to start button, sends to the Tabs/List pages
   private goToTabs() {
-    this.navCtrl.push(TabsPage)
+    this.navCtrl.push(TabsPage, this.db)
   }
+
 
 
 }

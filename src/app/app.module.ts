@@ -2,19 +2,20 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Http } from '@angular/http';
 
 import { HomePage } from '../pages/home/home';
 import { InfoPage } from '../pages/info/info';
 import { ListPage } from '../pages/list/list';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ScanPage } from '../pages/scan/scan';
-//import { Database } from '../pages/database/database';
+import { DatabaseProvider } from '../pages/database/database';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 //Ionic Native plug-ins
-import { SQLite } from '@ionic-native/sqlite';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
@@ -27,7 +28,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     TabsPage,
     ScanPage,
     ListPage,
-    //Database
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     TabsPage,
     ScanPage,
     ListPage,
-    //Database
   ],
   providers: [
     StatusBar,
@@ -49,7 +48,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SQLite,
     BarcodeScanner,
     InAppBrowser,
-    //Database,
+    DatabaseProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
