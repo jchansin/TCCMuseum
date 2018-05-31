@@ -29,7 +29,7 @@ export class TabsPage {
   tab3Root = InfoPage;
 
 
-  private fixedURL: string = "votre url fixe avec votre code perso";
+  private fixedURL: string = "votre url fixe avec votre code personnel";
   private scannedData: any;
   
 
