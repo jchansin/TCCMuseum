@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { DatabaseProvider } from '../database/database';
+import { Platform } from 'ionic-angular';
+
 
 //Native components
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
@@ -23,10 +25,13 @@ export class HomePage {
   public myName: string;
 
 
-  constructor (public navCtrl: NavController, private sqlite: SQLite, private dbService: DatabaseProvider) {
+  constructor (platform: Platform, public navCtrl: NavController, private sqlite: SQLite, private dbService: DatabaseProvider) {
     
-    this.dbService.startAppDatabase();
-    this.loadingStatus = this.dbService.loadingStatus;
+    platform.ready()
+      .then(() => {
+        this.dbService.startAppDatabase();
+        this.loadingStatus = this.dbService.loadingStatus;
+    })
     
   }
 
@@ -39,9 +44,11 @@ export class HomePage {
 
   }
 
-  // Function linked to start button, sends to the Tabs/List pages
+  // Function linked to start button, sends to the Tabs/List pages and sets Root page to Tabs
   private goToTabs() {
-    this.navCtrl.push(TabsPage, this.db)
+    console.log("Root page set to Tabs");
+    this.navCtrl.setRoot(TabsPage, this.db)
+      
   }
 
 

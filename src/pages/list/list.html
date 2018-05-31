@@ -5,11 +5,28 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- <h2>Liste des oeuvres : {{seenWorks}} / {{totalWorks}}</h2> -->
-  <p>
-    Filler text
-  </p>
-  <p>
-  <!-- Database testing: {{testString.data.rows.item(0).lastname}} {{testString.data.rows.item(0).firstname}} aime les empañadas  </p> -->
+  <h2><b>Oeuvres vues :</b> {{seenWorks}} / {{totalWorks}}</h2>
+  
+  
+  <!-- <p>
+    <ion-list>
+      <ion-item *ngFor="let of ">
+        <ion-card>
+          <img src="../../assets/imgs/{{}}"/>
+          <ion-card-content>
+            <b>Nom :</b><br/>
+            <b>Prénom :</b><br/>
+            <b>Code :</b><br/>
+            <p *ngIf="{{}} == 1">
+              <ion-checkbox checked="true" disabled="true"></ion-checkbox>
+            </p>
+          </ion-card-content>
+        </ion-card> 
+      </ion-item>
+    </ion-list>
+  </p> -->
+
+
+  <button (tap) = "testDB()">Click to test DB !</button>
   
 </ion-content>

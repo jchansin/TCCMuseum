@@ -1,9 +1,11 @@
-// This will be used as a provider to avoid re-opening the database each time
+// This will be used as a provider to centralize database operations (see app.module.ts)
 
-// Table values need to be added in
 
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { ListPage } from '../list/list';
+import { Platform } from 'ionic-angular';
+
 
 
 @Injectable()
@@ -12,7 +14,7 @@ export class DatabaseProvider {
 
     public db: SQLiteObject;
     public loadingStatus: string;
-    public testString: any;
+    public testString: string;
 
     options: any = {
         name: 'tccmuseum.db',
@@ -20,7 +22,7 @@ export class DatabaseProvider {
         createFromLocation: 1
     }
 
-    constructor(public sqlite: SQLite) {
+    constructor(platform: Platform, public sqlite: SQLite) {
 
     }
 
@@ -41,7 +43,7 @@ export class DatabaseProvider {
 
     // Function for creating table "works", only if not already created
     public createTable(): void {
-        this.db.executeSql('CREATE TABLE `works` ( `id` INTEGER PRIMARY KEY, `lastname` TEXT, `firstname` TEXT, `photo_path` TEXT, `qr_code_number` INTEGER, `visit_status` INTEGER DEFAULT 0 )', {})
+        this.db.executeSql('CREATE TABLE IF NOT EXISTS `works` ( `id` INTEGER PRIMARY KEY, `lastname` TEXT, `firstname` TEXT, `photo_path` TEXT, `qr_code_number` INTEGER, `visit_status` INTEGER DEFAULT 0 )', {})
             .then(() => {
                 console.log("Table 'works' created")
                 this.insertTableValues();
@@ -50,17 +52,36 @@ export class DatabaseProvider {
     }
 
 
-    // Table values insertion
+    // Insert table values
     public insertTableValues(): void {
-        this.db.executeSql('insert into `works` ( id, lastname, firstname, qr_code_number, photo_path) values ( "1", "ALVAREZ", "Jean-pierre", "9213750369", "photo_path")', {} )
+        this.db.executeSql("INSERT INTO `works` (id,lastname,firstname,photo_path,qr_code_number,visit_status) VALUES (1,'ALVAREZ','Jean-pierre','alvarez_jeanpierre.jpg',9213750369,0)," +
+        "(2,'ARAI','Poeragui','arai_poeragui.jpg',6510403686,0)," +
+        "(3,'CHANSIN','Jérôme','chansin_jerome.jpg',7216899933,0)," +
+        "(4,'CHEUNG-SEN','Jonas','cheungsen_jonas.jpg',1629568455,0)," +
+        "(5,'CUNY','Heimana','cuny_heimana.jpg',9266553664,0)," +
+        "(6,'EBB','Nicolas','ebb_nicolas.jpg',1168085824,0)," +
+        "(7,'LEHARTEL','Alexandre','lehartel_alexandre.jpg',2791010818,0)," +
+        "(8,'LENOIR','Tetuaoro','lenoir_tetuaoro.jpg',4173047359,0)," +
+        "(9,'LONGINE','Manaarii','longine_manaarii.jpg',9782420312,0)," +
+        "(10,'LY','Joane','ly_joane.jpg',6872232276,0)," +
+        "(11,'MONACO','Vaitiare','monaco_vaitiare.jpg',4653519064,0)," +
+        "(12,'PAEAHI','Ariipaea','paeahi_ariipaea.jpg',3658034121,0)," +
+        "(13,'PAMBRUN','Aito','pambrun_aito.jpg',5175547403,0)," +
+        "(14,'PAMBRUN','Hiomai','pambrun_hiomai.jpg',9520532017,0)," +
+        "(15,'PEREZ','Rahiti','perez_rahiti.jpg',1228597258,0)," +
+        "(16,'PERRY','Matihamu','perry_matihanu.jpg',5480211371,0)," +
+        "(17,'ROUSSEL','Christian','roussel_christian.jpg',2462643924,0)," +
+        "(18,'TEHUPE','Tinirau','tehupe_tinirau.jpg',5055364030,0)," +
+        "(19,'TEMATAHOTOA','Tinirau','tematahotoa_tinirau.jpg',6232447902,0)," +
+        "(20,'TOOFA','Teparii','toofa_teparii.jpg',4235066246,0);", {} )
             .then(() => {
-                console.log('Jipé intégré en DB')
+                console.log('DB values filled in')
             })
             .catch(e => console.log(e));
     }
 
 
-    // Table values request testing
+    // Test table values request
     public requestJipeValue(): any {     
         this.sqlite.create(this.options)
             .then((db: SQLiteObject) => {
@@ -68,29 +89,15 @@ export class DatabaseProvider {
                 this.db = db;
                 this.db.executeSql('select * from `works` where lastname = "ALVAREZ"', {})
                     .then (function(data) {
-                        return data
+                        console.log(data);
+                        this.testString = data
                     })
             })
             .catch(e => console.log(e));
     }
 
 
-     /* // Get number of works already seen in browser
-  public getSeenWorks(): void {
-    this.seenWorks = this.db.executesql(
-      `SELECT COUNT(visit_status)
-      FROM works
-      WHERE works.visit_status=1`
-    )
-  }
-
-  // Get total number of works in db
-  public getTotalWorks(): void {
-    this.totalWorks = this.db.executesql(
-      `SELECT COUNT(id)
-      FROM works`
-    )
-  } */
+    
 
 
 }
