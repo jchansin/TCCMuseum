@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../database/database';
+import { AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
+
 
 import { InfoPage } from '../info/info';
 import { ListPage } from '../list/list';
@@ -26,28 +29,58 @@ export class TabsPage {
   tab3Root = InfoPage;
 
 
-  private fixedURL: string = "PartieFixeDeLUrlIci";
+  private fixedURL: string = "votre url fixe avec votre code personnel";
   private scannedData: any;
   
 
-
-  constructor(public navCtrl: NavController, private sqlite: SQLite, private barcodeScanner: BarcodeScanner, private dbService: DatabaseProvider, private iab: InAppBrowser) {
-  
-    this.goToScanner();
-
+  options: any = {
+    name: 'tccmuseum.db',
+    location: 'default',
+    createFromLocation: 1
   }
 
 
+  constructor(platform: Platform, public navCtrl: NavController, private sqlite: SQLite, private barcodeScanner: BarcodeScanner, private dbService: DatabaseProvider, private iab: InAppBrowser, private alertCtrl: AlertController) {
+    
   
-  
+  }
 
 
-  private goToScanner(): void {
+
+  private goToScanner(): any {
     this.barcodeScanner.scan()
       .then(barcodeData => {
         console.log('Barcode data', barcodeData);
         this.scannedData = barcodeData.text;
-        this.goToBrowser();
+        this.checkCodeValidity();
+      })
+      .catch(err => {
+          console.log('Error', err);
+      });
+  }
+
+
+  private checkCodeValidity(): any {
+    this.dbService.db.executeSql('SELECT qr_code_number FROM `works` WHERE works.qr_code_number=' + this.scannedData, {})
+      .then(checkCode => {
+        console.log('Check QR code validity', checkCode.rows.item(0));
+        if(checkCode.rows.item(0)) {
+          this.updateSeenStatus();
+        } else {
+          this.invalidCodeAlert();
+        }
+      })
+      .catch(err => {
+          console.log('Error', err);
+      });
+  }
+
+
+  private updateSeenStatus(): any {
+    this.dbService.db.executeSql('UPDATE `works` SET works.visit_status = "1" WHERE works.qr_code_number={{barcodeData.text}}', {})
+      .then(() => {
+        console.log('Status updated to "seen"');
+        this.goToBrowser()
       })
       .catch(err => {
           console.log('Error', err);
@@ -59,6 +92,19 @@ export class TabsPage {
     this.iab.create(this.fixedURL + this.scannedData)
   }
 
+
+  private invalidCodeAlert(): any {
+    this.alertCtrl.create({
+      title: "QR code invalide !",
+      message: "Ce QR code ne correspond à aucune oeuvre du Tahiti Code Camp Museum.",
+      buttons: [
+        {
+          text: "OK",
+          handler: this.goToScanner(),
+        },
+      ]
+    })
+  }
 
 
 
