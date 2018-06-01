@@ -36,14 +36,6 @@ export class HomePage {
   }
 
 
-  // Function for creating table "works", only if not already created
-  private createTable(): void {
-    this.db.executeSql('CREATE TABLE IF NOT EXISTS `works` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `lastname` TEXT, `firstname` TEXT, `photo_path` TEXT, `qr_code_number` INTEGER, `visit_status` TEXT )', {})
-    .then(() => console.log('Table created'))
-    .catch(e => console.log(e));
-
-  }
-
   // Function linked to start button, sends to the Tabs/List pages and sets Root page to Tabs
   private goToTabs() {
     console.log("Root page set to Tabs");

@@ -82,23 +82,4 @@ export class DatabaseProvider {
     }
 
 
-    // Test table values request
-    public requestJipeValue(): any {     
-        this.sqlite.create(this.options)
-            .then((db: SQLiteObject) => {
-                console.log(`DB initialized and ready`)
-                this.db = db;
-                this.db.executeSql('select * from `works` where lastname = "ALVAREZ"', {})
-                    .then (function(data) {
-                        console.log(data);
-                        this.testString = data
-                    })
-            })
-            .catch(e => console.log(e));
-    }
-
-
-    
-
-
 }

@@ -4,10 +4,8 @@ import { DatabaseProvider } from '../database/database';
 import { AlertController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 
-
 import { InfoPage } from '../info/info';
 import { ListPage } from '../list/list';
-import { ScanPage } from '../scan/scan';
 
 //Native components
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
@@ -25,7 +23,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 export class TabsPage {
 
   tab1Root = ListPage;
-  tab2Root = ScanPage;
   tab3Root = InfoPage;
 
 

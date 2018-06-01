@@ -60,7 +60,7 @@ export class ListPage {
       })
   }
 
-
+  // Test function to check if visit_status gets updated when scanning
   public checkSeenStatus(): any {
     this.dbService.db.executeSql("SELECT visit_status FROM works where lastname='CHANSIN'", {})
       .then((data) => {
