@@ -73,31 +73,13 @@ export class DatabaseProvider {
         "(17,'ROUSSEL','Christian','roussel_christian.jpg',2462643924,0)," +
         "(18,'TEHUPE','Tinirau','tehupe_tinirau.jpg',5055364030,0)," +
         "(19,'TEMATAHOTOA','Tinirau','tematahotoa_tinirau.jpg',6232447902,0)," +
-        "(20,'TOOFA','Teparii','toofa_teparii.jpg',4235066246,0);", {} )
+        "(20,'TOOFA','Teparii','toofa_teparii.jpg',4235066246,0)," +
+        "(21, 'MARO', 'Teremu', 'maro_teremu.jpg',1234567890);",{} )
             .then(() => {
                 console.log('DB values filled in')
             })
             .catch(e => console.log(e));
     }
-
-
-    // Test table values request
-    public requestJipeValue(): any {     
-        this.sqlite.create(this.options)
-            .then((db: SQLiteObject) => {
-                console.log(`DB initialized and ready`)
-                this.db = db;
-                this.db.executeSql('select * from `works` where lastname = "ALVAREZ"', {})
-                    .then (function(data) {
-                        console.log(data);
-                        this.testString = data
-                    })
-            })
-            .catch(e => console.log(e));
-    }
-
-
-    
 
 
 }

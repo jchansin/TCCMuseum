@@ -8,7 +8,6 @@ import { HomePage } from '../pages/home/home';
 import { InfoPage } from '../pages/info/info';
 import { ListPage } from '../pages/list/list';
 import { TabsPage } from '../pages/tabs/tabs';
-import { ScanPage } from '../pages/scan/scan';
 import { DatabaseProvider } from '../pages/database/database';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -26,7 +25,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     HomePage,
     InfoPage,
     TabsPage,
-    ScanPage,
     ListPage,
   ],
   imports: [
@@ -39,7 +37,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     HomePage,
     InfoPage,
     TabsPage,
-    ScanPage,
     ListPage,
   ],
   providers: [

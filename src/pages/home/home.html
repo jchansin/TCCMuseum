@@ -1,5 +1,3 @@
-<!-- Need to fix disabled/enabled start button -->
-
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
@@ -17,7 +15,7 @@
     Vous pouvez aussi scanner le QR code d'une oeuvre afin d'accéder à plus de détails.
   </p>
   
-  <button id="appStartButton" ion-button outline round (tap) = "goToTabs()" [disabled] = "buttonDisabled"> {{ loadingStatus }} <!-- Button should be disabled while db initializes, needs work-->
+  <button id="appStartButton" ion-button outline round (tap) = "goToTabs()"> {{ loadingStatus }}
   </button>
 
 
