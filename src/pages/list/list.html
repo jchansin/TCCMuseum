@@ -1,32 +1,28 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>List</ion-title>
+    <ion-title>Liste des oeuvres</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <h2><b>Oeuvres vues :</b> {{seenWorks}} / {{totalWorks}}</h2>
-  
-  
-  <!-- <p>
-    <ion-list>
-      <ion-item *ngFor="let of ">
-        <ion-card>
-          <img src="../../assets/imgs/{{}}"/>
+
+  <ion-scroll scrollY="true" style="height:100%">
+    <p *ngFor="let workInfo of worksInfo">
+
+        <ion-card >
+          <img src="../../assets/imgs/{{workInfo.photo_path}}"/>
           <ion-card-content>
-            <b>Nom :</b><br/>
-            <b>Prénom :</b><br/>
-            <b>Code :</b><br/>
-            <p *ngIf="{{}} == 1">
-              <ion-checkbox checked="true" disabled="true"></ion-checkbox>
+            <b>Nom : </b>{{workInfo.lastname}}<br/>
+            <b>Prénom : </b>{{workInfo.firstname}}<br/>
+            <b>Code : </b>{{workInfo.qr_code_number}}<br/>
+            <p *ngIf="workInfo.visit_status == 1">
+              <!-- <ion-checkbox checked="true" disabled="true"></ion-checkbox> -->
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
             </p>
           </ion-card-content>
         </ion-card> 
-      </ion-item>
-    </ion-list>
-  </p> -->
+    </p>
+  </ion-scroll>
 
-
-  <button (tap) = "testDB()">Click to test DB !</button>
-  
 </ion-content>

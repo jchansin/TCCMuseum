@@ -29,7 +29,7 @@ export class TabsPage {
   tab3Root = InfoPage;
 
 
-  private fixedURL: string = "votre url fixe avec votre code personnel";
+  private fixedURL: string = "http://tcc.1click.pf/museum/index.php?mat=5OSWU8YOTC&oeuvre=";
   private scannedData: any;
   
 
@@ -46,38 +46,39 @@ export class TabsPage {
   }
 
 
-
+  // Launch barcode scanner
   private goToScanner(): any {
     this.barcodeScanner.scan()
       .then(barcodeData => {
         console.log('Barcode data', barcodeData);
         this.scannedData = barcodeData.text;
-        this.checkCodeValidity();
+        this.updateSeenStatus();
       })
       .catch(err => {
           console.log('Error', err);
       });
   }
 
-
+/*   // Check if scanned QR code matches a code in DB
   private checkCodeValidity(): any {
-    this.dbService.db.executeSql('SELECT qr_code_number FROM `works` WHERE works.qr_code_number=' + this.scannedData, {})
+    this.dbService.db.executeSql('SELECT qr_code_number FROM `works` WHERE works.qr_code_number='+this.scannedData, {})
       .then(checkCode => {
         console.log('Check QR code validity', checkCode.rows.item(0));
-        if(checkCode.rows.item(0)) {
+        if(checkCode == undefined) {
           this.updateSeenStatus();
         } else {
-          this.invalidCodeAlert();
+          this.invalidCodeAlert(); 
         }
       })
       .catch(err => {
           console.log('Error', err);
       });
-  }
+  } */
 
 
+  // When QR code is valid, update matching visit_status
   private updateSeenStatus(): any {
-    this.dbService.db.executeSql('UPDATE `works` SET works.visit_status = "1" WHERE works.qr_code_number={{barcodeData.text}}', {})
+    this.dbService.db.executeSql("UPDATE `works` SET visit_status = '1' WHERE works.qr_code_number="+this.scannedData + ";", {})
       .then(() => {
         console.log('Status updated to "seen"');
         this.goToBrowser()
@@ -87,13 +88,13 @@ export class TabsPage {
       });
   }
 
-
+  // Launch InApp Browser to matching page
   private goToBrowser(): void {
     this.iab.create(this.fixedURL + this.scannedData)
   }
 
 
-  private invalidCodeAlert(): any {
+/*   private invalidCodeAlert(): any {
     this.alertCtrl.create({
       title: "QR code invalide !",
       message: "Ce QR code ne correspond à aucune oeuvre du Tahiti Code Camp Museum.",
@@ -104,7 +105,7 @@ export class TabsPage {
         },
       ]
     })
-  }
+  } */
 
 
 

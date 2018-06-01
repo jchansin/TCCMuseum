@@ -73,7 +73,8 @@ export class DatabaseProvider {
         "(17,'ROUSSEL','Christian','roussel_christian.jpg',2462643924,0)," +
         "(18,'TEHUPE','Tinirau','tehupe_tinirau.jpg',5055364030,0)," +
         "(19,'TEMATAHOTOA','Tinirau','tematahotoa_tinirau.jpg',6232447902,0)," +
-        "(20,'TOOFA','Teparii','toofa_teparii.jpg',4235066246,0);", {} )
+        "(20,'TOOFA','Teparii','toofa_teparii.jpg',4235066246,0)," +
+        "(21, 'MARO', 'Teremu', 'maro_teremu.jpg',1234567890);",{} )
             .then(() => {
                 console.log('DB values filled in')
             })
