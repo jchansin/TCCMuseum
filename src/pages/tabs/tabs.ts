@@ -26,7 +26,7 @@ export class TabsPage {
   tab3Root = InfoPage;
 
 
-  private fixedURL: string = "http://tcc.1click.pf/museum/index.php?mat=5OSWU8YOTC&oeuvre=";
+  private fixedURL: string = "URL fixe avec votre code perso";
   private scannedData: any;
   
 
