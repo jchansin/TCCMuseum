@@ -26,7 +26,7 @@ export class TabsPage {
   tab3Root = InfoPage;
 
 
-  private fixedURL: string = "URL fixe avec votre code perso";
+  private fixedURL: string = "http://tcc.1click.pf/museum/index.php?mat=5OSWU8YOTC&oeuvre=";
   private scannedData: any;
   
 
@@ -43,13 +43,18 @@ export class TabsPage {
   }
 
 
+
   // Launch barcode scanner
   private goToScanner(): any {
     this.barcodeScanner.scan()
       .then(barcodeData => {
-        console.log('Barcode data', barcodeData);
-        this.scannedData = barcodeData.text;
-        this.updateSeenStatus();
+        if(!barcodeData.cancelled) {
+          console.log('Barcode data', barcodeData);
+          this.scannedData = barcodeData.text;
+          this.updateSeenStatus();
+        } else {
+          this.navCtrl.push(ListPage);
+        }
       })
       .catch(err => {
           console.log('Error', err);

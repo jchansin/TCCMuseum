@@ -28,6 +28,7 @@ export class ListPage {
     this.getTotalWorks();
     this.getWorksInfo();
     this.checkSeenStatus();
+    
 
   }
 

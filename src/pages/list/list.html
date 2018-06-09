@@ -8,7 +8,7 @@
   <h2><b>Oeuvres vues :</b> {{seenWorks}} / {{totalWorks}}</h2>
 
   <ion-scroll scrollY="true" style="height:100%">
-    <p *ngFor="let workInfo of worksInfo">
+    <!-- <p *ngFor="let workInfo of worksInfo">
 
         <ion-card >
           <img src="../../assets/imgs/{{workInfo.photo_path}}"/>
@@ -17,12 +17,37 @@
             <b>Prénom : </b>{{workInfo.firstname}}<br/>
             <b>Code : </b>{{workInfo.qr_code_number}}<br/>
             <p *ngIf="workInfo.visit_status == 1">
-              <!-- <ion-checkbox checked="true" disabled="true"></ion-checkbox> -->
+              <ion-checkbox checked="true" disabled="true"></ion-checkbox>
               <ion-icon name="checkmark-circle-outline"></ion-icon>
             </p>
           </ion-card-content>
         </ion-card> 
-    </p>
+    </p> -->
+
+
+    <ion-card *ngFor="let workInfo of worksInfo">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="../../assets/imgs/{{workInfo.photo_path}}"/>
+            </ion-avatar>
+            <p>Nom : {{workInfo.lastname}}</p>
+            <p>Prénom : {{workInfo.firstname}}</p>
+            <p>Code : {{workInfo.qr_code_number}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <p *ngIf="workInfo.visit_status == 1">
+            <br/>
+            <br/>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+
   </ion-scroll>
 
 </ion-content>

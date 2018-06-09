@@ -74,7 +74,7 @@ export class DatabaseProvider {
         "(18,'TEHUPE','Tinirau','tehupe_tinirau.jpg',5055364030,0)," +
         "(19,'TEMATAHOTOA','Tinirau','tematahotoa_tinirau.jpg',6232447902,0)," +
         "(20,'TOOFA','Teparii','toofa_teparii.jpg',4235066246,0)," +
-        "(21, 'MARO', 'Teremu', 'maro_teremu.jpg',1234567890);",{} )
+        "(21, 'MARO', 'Teremu', 'maro_teremu.jpg',1234567890,0);",{} )
             .then(() => {
                 console.log('DB values filled in')
             })
