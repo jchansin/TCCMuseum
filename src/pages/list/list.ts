@@ -19,7 +19,7 @@ export class ListPage {
 
   public seenWorks: any;
   public totalWorks: any;
-  private worksInfo = [];
+  public worksInfo = [];
   
 
   constructor(platform: Platform, public navCtrl: NavController, private sqlite: SQLite, private dbService: DatabaseProvider, public navParams: NavParams) {
